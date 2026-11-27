@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelato Tasting · University of Pennsylvania | Gran Caffè L'Aquila</title>
+    <meta name="description" content="Material for the gelato tasting with the University of Pennsylvania — Italian Foods and Cultures course. Tuesday, December 1, 2026, Gran Caffè L'Aquila, Philadelphia: a vertical flight of four flavors, how gelato is made, and its history.">
+    <meta property="og:title" content="Gelato Tasting · University of Pennsylvania | Gran Caffè L'Aquila">
+    <meta property="og:description" content="A vertical gelato tasting for the University of Pennsylvania — Italian Foods and Cultures. December 1, 2026 · Gran Caffè L'Aquila, Philadelphia.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=1200&q=80">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Mono:wght@300;400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+    <style>
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+    --cream:      #F5F0E8;
+    --espresso:   #1A0A00;
+    --gold:       #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dim:   rgba(201,168,76,0.18);
+    --burgundy:   #6B1E2E;
+    --terracotta: #C4622D;
+    --marble:     #EDE8DF;
+    --charcoal:   #2C2520;
+    --charcoal-80:#3D3530;
+
+    --ff-display: 'Cormorant Garamond', serif;
+    --ff-caps:    'Cinzel', serif;
+    --ff-body:    'EB Garamond', serif;
+    --ff-mono:    'DM Mono', monospace;
+
+    --sec-pad: clamp(80px, 10vw, 140px);
+    --ease:    cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-e:  cubic-bezier(0.68, -0.4, 0.27, 1.55);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    background: var(--espresso);
+    color: var(--cream);
+    font-family: var(--ff-body);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ============================================================
+   CUSTOM CURSOR
+   ============================================================ */
+@media (pointer: fine) {
+    body { cursor: none; }
+    .cursor-dot {
+        width: 8px; height: 8px;
+        background: var(--gold);
+        border-radius: 50%;
+        position: fixed; top: 0; left: 0;
+        pointer-events: none; z-index: 9999;
+        transition: transform 0.08s linear;
+        will-change: transform;
+    }
+    .cursor-ring {
+        width: 36px; height: 36px;
+        border: 1px solid rgba(201,168,76,0.6);
+        border-radius: 50%;
+        position: fixed; top: 0; left: 0;
+        pointer-events: none; z-index: 9998;
+        transition: transform 0.22s var(--ease), width 0.3s, height 0.3s, opacity 0.3s;
+        will-change: transform;
+    }
+    body.cursor-hover .cursor-ring {
+        width: 60px; height: 60px;
+        border-color: var(--gold);
+        opacity: 0.7;
+    }
+}
+
+/* ============================================================
+   STICKY NAV
+   ============================================================ */
+nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 5%;
+    transition: background 0.5s ease, padding 0.4s ease, backdrop-filter 0.5s;
+}
+nav.scrolled {
+    background: rgba(26,10,0,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 1rem 5%;
+    border-bottom: 1px solid var(--gold-dim);
+}
+.nav-logo {
+    font-family: var(--ff-caps);
+    font-size: clamp(12px, 1.6vw, 15px);
+    letter-spacing: 0.12em;
+    color: var(--gold);
+}
+.nav-logo span { display: block; font-size: 0.7em; opacity: 0.6; letter-spacing: 0.25em; margin-top: 2px; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+    font-family: var(--ff-caps); font-size: 11px; letter-spacing: 0.15em;
+    color: var(--cream); opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+}
+.nav-links a:hover { opacity: 1; color: var(--gold); }
+.nav-cta {
+    font-family: var(--ff-caps); font-size: 11px; letter-spacing: 0.12em;
+    color: var(--gold); border: 1px solid var(--gold);
+    padding: 0.6rem 1.4rem;
+    transition: background 0.2s, color 0.2s;
+}
+.nav-cta:hover { background: var(--gold); color: var(--espresso); }
+
+/* Hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span {
+    display: block; width: 24px; height: 1px;
+    background: var(--gold);
+    transition: transform 0.35s var(--ease), opacity 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.mobile-menu {
+    display: none;
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: var(--espresso);
+    z-index: 800;
+    align-items: center; justify-content: center;
+    flex-direction: column; gap: 2.5rem;
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu a {
+    font-family: var(--ff-caps); font-size: 18px; letter-spacing: 0.2em;
+    color: var(--cream); opacity: 0.8;
+    transition: color 0.2s, opacity 0.2s;
+}
+.mobile-menu a:hover { color: var(--gold); opacity: 1; }
+
+@media (max-width: 768px) {
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+}
+
+/* ============================================================
+   SCROLL MARQUEE (DECORATIVE)
+   ============================================================ */
+.marquee-strip {
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--espresso);
+    border-top: 1px solid var(--gold-dim);
+    border-bottom: 1px solid var(--gold-dim);
+    padding: 0.7rem 0;
+}
+.marquee-track {
+    display: inline-block;
+    animation: marquee-ltr 25s linear infinite;
+}
+.marquee-track span {
+    font-family: var(--ff-caps);
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: rgba(201,168,76,0.4);
+    margin: 0 2rem;
+}
+@keyframes marquee-ltr {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+    position: relative;
+    height: 100vh; min-height: 600px;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; overflow: hidden;
+}
+.hero-bg {
+    position: absolute; inset: -12%;
+    background: url('https://grancaffelaquila.com/cdn/shop/files/slide_show_square_gelato_590x.jpg?v=1614345975') center/cover no-repeat;
+    filter: brightness(0.35) saturate(0.8);
+    will-change: transform;
+    z-index: 0;
+}
+.hero-overlay {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center bottom, rgba(201,168,76,0.06) 0%, transparent 65%),
+                linear-gradient(to top, rgba(26,10,0,0.7) 0%, transparent 50%);
+    z-index: 1;
+}
+.hero-content { position: relative; z-index: 2; padding: 2rem; max-width: 900px; }
+.hero-supertitle {
+    font-family: var(--ff-caps); font-size: clamp(10px, 1.2vw, 12px);
+    letter-spacing: 0.35em; color: var(--gold);
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp 0.9s var(--ease) forwards 0.4s;
+}
+.hero-title {
+    font-family: var(--ff-display); font-style: italic;
+    font-size: clamp(56px, 10vw, 124px);
+    line-height: 0.92;
+    margin: 1.5rem 0;
+    clip-path: inset(0 100% 0 0);
+    animation: clipReveal 1.6s var(--ease) forwards 0.85s;
+}
+.hero-subtitle {
+    font-family: var(--ff-body);
+    font-size: clamp(16px, 1.8vw, 20px);
+    color: rgba(245,240,232,0.75);
+    max-width: 560px; margin: 0 auto 2.5rem;
+    line-height: 1.6;
+    opacity: 0; transform: translateY(16px);
+    animation: fadeUp 1s var(--ease) forwards 1.5s;
+}
+.hero-cta {
+    font-family: var(--ff-caps); font-size: 12px; letter-spacing: 0.18em;
+    color: var(--gold); border: 1px solid var(--gold);
+    padding: 1.1rem 2.8rem; display: inline-block;
+    position: relative; overflow: hidden;
+    transition: color 0.35s ease;
+    opacity: 0; animation: fadeUp 0.9s var(--ease) forwards 1.9s;
+}
+.hero-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--gold);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s var(--ease);
+    z-index: -1;
+}
+.hero-cta:hover { color: var(--espresso); }
+.hero-cta:hover::before { transform: scaleX(1); }
+
+.scroll-hint {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    z-index: 2; opacity: 0; animation: fadeUp 1s forwards 2.4s;
+}
+.scroll-hint span { font-family: var(--ff-caps); font-size: 9px; letter-spacing: 0.3em; color: var(--gold); opacity: 0.6; }
+.scroll-line {
+    width: 1px; height: 40px; background: var(--gold); opacity: 0.4;
+    animation: scrollPulse 2s ease-in-out infinite;
+    transform-origin: top;
+}
+@keyframes scrollPulse {
+    0%,100% { transform: scaleY(1); opacity: 0.4; }
+    50% { transform: scaleY(0.4); opacity: 0.1; }
+}
+
+/* ============================================================
+   STORIA — NASCITA DEL GELATO
+   ============================================================ */
+.section-storia {
+    background: var(--cream);
+    color: var(--espresso);
+    padding: var(--sec-pad) 5%;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+.section-storia::before {
+    content: 'GELATO';
+    position: absolute; right: -2%; top: 50%; transform: translateY(-50%);
+    font-family: var(--ff-display); font-style: italic;
+    font-size: clamp(80px, 14vw, 220px);
+    color: rgba(201,168,76,0.06);
+    pointer-events: none; user-select: none;
+    white-space: nowrap;
+    max-width: 100%;
+}
+.storia-inner {
+    display: grid; grid-template-columns: 1.25fr 0.75fr; gap: clamp(2rem, 4vw, 5rem);
+    max-width: 1200px; margin: 0 auto; align-items: start;
+    width: 100%; min-width: 0;
+}
+.storia-text .label { color: var(--terracotta); }
+.storia-text .section-title {
+    font-family: var(--ff-display); font-style: italic;
+    font-size: clamp(38px, 4.8vw, 72px);
+    line-height: 1.05; margin: 1rem 0 2rem; color: var(--espresso);
+    letter-spacing: -0.01em;
+}
+.storia-text p {
+    font-size: clamp(15px, 1.4vw, 18px);
+    line-height: 1.75; color: var(--charcoal);
+    margin-bottom: 1.5rem; opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+    word-break: break-word; overflow-wrap: break-word;
+}
+.storia-text p.is-visible { opacity: 1; transform: translateY(0); }
+.storia-text p:nth-child(3) { transition-delay: 0.1s; }
+.storia-text p:nth-child(4) { transition-delay: 0.2s; }
+.storia-text p:nth-child(5) { transition-delay: 0.3s; }
+
+/* Timeline verticale (layout "storia" come reference) */
+.storia-timeline {
+    position: relative;
+    padding-left: 1.4rem;
+    margin-top: 0.7rem;
+}
+.storia-timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    bottom: 10px;
+    width: 1px;
+    background: rgba(26,10,0,0.12);
+}
+.storia-tl-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    column-gap: 1rem;
+    padding: 0.85rem 0;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.storia-tl-item.is-visible { opacity: 1; transform: translateY(0); }
+.storia-tl-item:nth-child(1) { transition-delay: 0s; }
+.storia-tl-item:nth-child(2) { transition-delay: 0.08s; }
+.storia-tl-item:nth-child(3) { transition-delay: 0.16s; }
+.storia-tl-item:nth-child(4) { transition-delay: 0.24s; }
+.storia-tl-item:nth-child(5) { transition-delay: 0.32s; }
+
+.storia-tl-dot {
+    position: absolute;
+    left: 0;
+    top: 1.2rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--cream);
+    border: 1px solid rgba(26,10,0,0.25);
+    box-shadow: 0 0 0 4px rgba(245,240,232,0.9);
+}
+.storia-tl-year {
+    font-family: var(--ff-mono);
+    font-size: 11px;
+    letter-spacing: 0;
+    color: rgba(26,10,0,0.55);
+    padding-top: 0.15rem;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.2;
+}
+.storia-tl-body {
+    font-family: var(--ff-body);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--charcoal-80);
+}
+.storia-tl-body em {
+    font-family: var(--ff-display);
+    font-style: italic;
+    color: var(--espresso);
+}
+.storia-tl-body strong { color: var(--espresso); font-weight: 600; }
+
+/* Storia image side */
+.storia-visual {
+    position: relative;
+    opacity: 0; transform: translateX(30px);
+    transition: opacity 1s var(--ease) 0.3s, transform 1s var(--ease) 0.3s;
+}
+.storia-visual.is-visible { opacity: 1; transform: translateX(0); }
+.storia-img {
+    width: 100%; aspect-ratio: 3/4;
+    object-fit: cover;
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 88% 100%, 0 100%);
+}
+.storia-badge {
+    position: absolute; bottom: -20px; right: -20px;
+    width: 130px; height: 130px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 1rem;
+}
+.storia-badge .num {
+    font-family: var(--ff-display); font-weight: 600;
+    font-size: 38px; color: var(--espresso); line-height: 1;
+}
+.storia-badge .sub {
+    font-family: var(--ff-caps); font-size: 8px;
+    letter-spacing: 0.1em; color: var(--espresso);
+    opacity: 0.8; margin-top: 4px;
+}
+
+@media (max-width: 900px) {
+    .storia-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .storia-visual { display: none; }
+    .storia-timeline { margin-top: 2rem; }
+}
+@media (max-width: 480px) {
+    .section-storia { padding: clamp(50px, 8vw, 80px) 4%; }
+    .storia-inner { gap: 1.5rem; }
+    .storia-tl-item { grid-template-columns: 64px 1fr; }
+}
+
+/* ============================================================
+   FLAVOR CARDS
+   ============================================================ */
+.section-flavors {
+    background: var(--espresso);
+    padding: var(--sec-pad) 5%;
+    position: relative; overflow: hidden;
+}
+.section-flavors::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.section-header { text-align: center; margin-bottom: clamp(3rem, 5vw, 5rem); }
+.label {
+    font-family: var(--ff-caps); font-size: 11px;
+    letter-spacing: 0.25em; color: var(--terracotta);
+    display: block; margin-bottom: 0.8rem;
+}
+.section-title {
+    font-family: var(--ff-display); font-style: italic;
+    font-size: clamp(36px, 5vw, 64px); line-height: 1.08;
+}
+.section-subtitle {
+    font-family: var(--ff-body); font-size: clamp(15px, 1.4vw, 18px);
+    opacity: 0.65; max-width: 580px; margin: 1.2rem auto 0;
+    line-height: 1.6;
+}
+.grid-flavors {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px; margin: 0 auto 5rem;
+}
+@media (max-width: 900px) { .grid-flavors { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 580px) { .grid-flavors { grid-template-columns: 1fr; } }
+
+.flavor-card {
+    background: rgba(26,10,0,0.5);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--gold-dim);
+    padding: 2.2rem 2rem;
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease),
+                border-color 0.3s, box-shadow 0.3s;
+}
+.flavor-card.is-visible { opacity: 1; transform: translateY(0); }
+.flavor-card:hover {
+    border-color: rgba(201,168,76,0.6);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.08), 0 0 0 1px rgba(201,168,76,0.15);
+    transform: translateY(-6px) !important;
+}
+.flavor-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s var(--ease);
+}
+.flavor-card:hover::after { transform: scaleX(1); }
+.flavor-tag {
+    font-family: var(--ff-caps); font-size: 9px; letter-spacing: 0.2em;
+    color: var(--gold); opacity: 0.7;
+    margin-bottom: 1rem; display: block;
+}
+.flavor-name {
+    font-family: var(--ff-display); font-style: italic; font-size: 30px;
+    color: var(--gold); margin-bottom: 0.8rem; line-height: 1.1;
+}
+.flavor-desc { font-size: 15px; line-height: 1.65; opacity: 0.72; }
+
+/* Gastronomico featured */
+.flavor-card.featured {
+    grid-column: span 3;
+    background: linear-gradient(135deg, rgba(107,30,46,0.4), rgba(26,10,0,0.6));
+    border-color: rgba(107,30,46,0.6);
+    padding: 3rem;
+    display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; align-items: center;
+}
+@media (max-width: 900px) { .flavor-card.featured { grid-column: span 2; grid-template-columns: 1fr; } }
+@media (max-width: 580px) { .flavor-card.featured { grid-column: span 1; } }
+.featured-quote {
+    font-family: var(--ff-display); font-style: italic;
+    font-size: clamp(24px, 3vw, 38px); line-height: 1.2;
+    color: var(--cream);
+}
+.featured-quote em { color: var(--gold); font-style: normal; }
+.featured-attr {
+    font-family: var(--ff-caps); font-size: 10px; letter-spacing: 0.2em;
+    color: var(--gold); opacity: 0.7; margin-top: 1rem; display: block;
+}
+.featured-body { font-size: 16px; line-height: 1.7; opacity: 0.75; }
+.flavor-pills {
+    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem;
+}
+.pill {
+    font-family: var(--ff-mono); font-size: 11px;
+    color: var(--terracotta); border: 1px solid rgba(196,98,45,0.4);
+    padding: 0.3rem 0.9rem;
+}
+
+/* ============================================================
+   COMPARISON — THE COMPARISON
+   ============================================================ */
+.section-comparison {
+    background: var(--marble);
+    color: var(--espresso);
+    padding: var(--sec-pad) 5%;
+    position: relative; overflow: hidden;
+}
+.section-comparison .section-title { color: var(--espresso); }
+.section-comparison .label { color: var(--terracotta); }
+
+/* Three column comparison */
+.compare-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; max-width: 1100px; margin: 4rem auto;
+}
+@media (max-width: 720px) { .compare-grid { grid-template-columns: 1fr; } }
+
+.compare-card {
+    padding: 2.5rem 2rem; text-align: center;
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.compare-card.is-visible { opacity: 1; transform: translateY(0); }
+.compare-card.card-gelato { background: var(--espresso); color: var(--cream); }
+.compare-card.card-ice    { background: rgba(44,37,32,0.08); color: var(--espresso); }
+.compare-card.card-sorbet { background: rgba(44,37,32,0.08); color: var(--espresso); }
+.compare-card.card-gelato .compare-name { color: var(--gold); }
+.compare-emoji { font-size: 40px; margin-bottom: 1.2rem; }
+.compare-name {
+    font-family: var(--ff-display); font-style: italic; font-size: 30px;
+    color: var(--terracotta); margin-bottom: 2rem;
+}
+.compare-stats { list-style: none; text-align: left; }
+.compare-stats li {
+    font-family: var(--ff-mono); font-size: 12px;
+    padding: 0.7rem 0; border-bottom: 1px solid rgba(0,0,0,0.08);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 1rem;
+}
+.compare-card.card-gelato .compare-stats li { border-color: var(--gold-dim); }
+.stat-label { opacity: 0.6; flex-shrink: 0; }
+.stat-val { font-weight: 400; color: inherit; }
+.stat-win { color: var(--gold); }
+.winner-badge {
+    font-family: var(--ff-caps); font-size: 9px; letter-spacing: 0.2em;
+    background: var(--gold); color: var(--espresso);
+    padding: 0.3rem 0.8rem; margin: 0 auto 1rem;
+    display: inline-block;
+}
+
+/* Nutritional chart */
+.nutrition-section { max-width: 1000px; margin: 0 auto 4rem; }
+.nutrition-title {
+    font-family: var(--ff-caps); font-size: 13px;
+    letter-spacing: 0.2em; color: var(--charcoal); opacity: 0.5;
+    margin-bottom: 2rem; text-align: center;
+}
+.nutrition-row {
+    display: grid; grid-template-columns: 160px 1fr 1fr 1fr;
+    gap: 1rem; align-items: center;
+    padding: 1rem 0; border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+@media (max-width: 580px) { .nutrition-row { grid-template-columns: 100px 1fr 1fr 1fr; } }
+.nut-label { font-family: var(--ff-mono); font-size: 11px; opacity: 0.65; }
+.nut-bar-wrap {
+    display: flex; align-items: center; gap: 0.7rem;
+}
+.nut-bar-track {
+    flex: 1; height: 3px; background: rgba(0,0,0,0.1); border-radius: 2px;
+    overflow: hidden;
+}
+.nut-bar-fill {
+    height: 100%; width: 0; border-radius: 2px;
+    transition: width 1.4s var(--ease);
+}
+.fill-g { background: var(--terracotta); }
+.fill-i { background: var(--charcoal-80); }
+.fill-s { background: var(--gold); }
+.nut-val { font-family: var(--ff-mono); font-size: 12px; min-width: 40px; }
+.nut-val.best { color: var(--terracotta); font-weight: 400; }
+.nut-header { font-family: var(--ff-caps); font-size: 10px; letter-spacing: 0.15em; opacity: 0.5; padding: 0; border-bottom: 1px solid rgba(0,0,0,0.15); }
+
+.callout-box {
+    background: var(--gold); color: var(--espresso);
+    padding: 2.5rem 3rem; max-width: 800px; margin: 0 auto;
+    text-align: center;
+}
+.callout-box p {
+    font-family: var(--ff-display); font-style: italic;
+    font-size: clamp(20px, 2.5vw, 28px); line-height: 1.4;
+}
+
+/* ============================================================
+   IL TOUR
+   ============================================================ */
+.section-tour {
+    background: var(--espresso); color: var(--cream);
+    padding: var(--sec-pad) 5%; position: relative; overflow: hidden;
+}
+.section-tour::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.tour-inner { max-width: 1200px; margin: 0 auto; }
+.tour-header { text-align: center; margin-bottom: clamp(3rem, 6vw, 6rem); }
+.tour-steps {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 0; position: relative;
+}
+@media (max-width: 900px) { .tour-steps { grid-template-columns: 1fr; gap: 1px; } }
+.tour-steps::before {
+    content: '';
+    position: absolute; top: 36px; left: 5%; right: 5%; height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim), var(--gold), var(--gold-dim));
+}
+@media (max-width: 900px) { .tour-steps::before { display: none; } }
+
+.tour-step {
+    padding: 0 1.5rem; text-align: center; position: relative;
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.tour-step.is-visible { opacity: 1; transform: translateY(0); }
+.tour-step:nth-child(1) { transition-delay: 0s; }
+.tour-step:nth-child(2) { transition-delay: 0.1s; }
+.tour-step:nth-child(3) { transition-delay: 0.2s; }
+.tour-step:nth-child(4) { transition-delay: 0.3s; }
+.tour-step:nth-child(5) { transition-delay: 0.4s; }
+
+.tour-num {
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.8rem;
+    font-family: var(--ff-mono); font-size: 13px; color: var(--gold);
+    background: var(--espresso);
+    position: relative; z-index: 1;
+}
+.tour-step-title {
+    font-family: var(--ff-display); font-style: italic; font-size: 22px;
+    color: var(--gold); margin-bottom: 0.7rem;
+}
+.tour-step-desc { font-size: 14px; line-height: 1.6; opacity: 0.65; }
+
+@media (max-width: 900px) {
+    .tour-step {
+        text-align: left; padding: 1.5rem 2rem;
+        display: grid; grid-template-columns: auto 1fr; gap: 0 1.5rem;
+        align-items: start; border-bottom: 1px solid var(--gold-dim);
+    }
+    .tour-num { margin: 0; }
+    .tour-step-title, .tour-step-desc { grid-column: 2; }
+    .tour-step-title { margin-top: 0.8rem; }
+}
+
+/* Practical info */
+/* practical info removed */
+
+.cta-group { text-align: center; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+    font-family: var(--ff-caps); font-size: 12px; letter-spacing: 0.15em;
+    background: var(--gold); color: var(--espresso);
+    padding: 1.2rem 3rem; display: inline-block;
+    transition: background 0.3s, transform 0.3s;
+}
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+.btn-secondary {
+    font-family: var(--ff-caps); font-size: 12px; letter-spacing: 0.15em;
+    color: var(--gold); border: 1px solid var(--gold-dim);
+    padding: 1.2rem 3rem; display: inline-block;
+    transition: border-color 0.3s, color 0.3s;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold-light); }
+
+/* ============================================================
+   GALLERY CAROUSEL
+   ============================================================ */
+.section-gallery {
+    overflow: hidden; padding: var(--sec-pad) 0;
+    background: var(--charcoal);
+    position: relative;
+}
+.gallery-row { display: flex; gap: 1.2rem; margin-bottom: 1.2rem; }
+.gallery-row-1 { animation: gallery-ltr 40s linear infinite; width: max-content; }
+.gallery-row-2 { animation: gallery-rtl 40s linear infinite; width: max-content; }
+.gallery-row:hover { animation-play-state: paused; }
+@keyframes gallery-ltr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes gallery-rtl { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+.gallery-item {
+    position: relative; flex-shrink: 0;
+    width: clamp(220px, 22vw, 300px);
+    height: clamp(280px, 28vw, 380px);
+    overflow: hidden;
+}
+.gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.7s var(--ease), filter 0.7s;
+    filter: saturate(0.7) brightness(0.85);
+}
+.gallery-item:hover img { transform: scale(1.07); filter: saturate(1) brightness(1); }
+.gallery-caption {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,10,0,0.8) 0%, transparent 50%);
+    display: flex; align-items: flex-end; padding: 1.2rem;
+    opacity: 0; transition: opacity 0.4s;
+}
+.gallery-item:hover .gallery-caption { opacity: 1; }
+.gallery-caption span {
+    font-family: var(--ff-display); font-style: italic;
+    font-size: 16px; color: var(--cream);
+}
+
+/* ============================================================
+   AWARDS
+   ============================================================ */
+.section-awards {
+    background: var(--espresso); color: var(--cream);
+    padding: var(--sec-pad) 5%; text-align: center;
+    position: relative; overflow: hidden;
+}
+.section-awards::before {
+    content: '★'; position: absolute;
+    font-size: clamp(200px, 40vw, 500px);
+    color: rgba(201,168,76,0.03);
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    pointer-events: none; font-family: sans-serif;
+}
+.awards-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; max-width: 1100px; margin: 4rem auto;
+}
+@media (max-width: 720px) { .awards-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 420px) { .awards-grid { grid-template-columns: 1fr; } }
+
+.award-item {
+    padding: 2.5rem 1.5rem;
+    border: 1px solid var(--gold-dim);
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    position: relative; overflow: hidden;
+}
+.award-item.is-visible { opacity: 1; transform: translateY(0); }
+.award-num {
+    font-family: var(--ff-display); font-weight: 600;
+    font-size: clamp(52px, 7vw, 80px);
+    color: var(--gold); line-height: 1;
+    margin-bottom: 0.5rem;
+}
+.award-title {
+    font-family: var(--ff-caps); font-size: 10px; letter-spacing: 0.18em;
+    opacity: 0.5; margin-bottom: 0.5rem;
+}
+.award-sub { font-family: var(--ff-body); font-size: 15px; opacity: 0.75; line-height: 1.4; }
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+.section-testimonials {
+    background: var(--cream); color: var(--espresso);
+    padding: var(--sec-pad) 5%; text-align: center;
+}
+.section-testimonials .section-title { color: var(--espresso); }
+.section-testimonials .label { color: var(--terracotta); }
+.testimonial-slider {
+    max-width: 780px; margin: 4rem auto;
+    position: relative; overflow: hidden;
+    min-height: 160px;
+}
+.testimonial-slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    opacity: 0; transition: opacity 0.8s ease;
+    pointer-events: none;
+}
+.testimonial-slide.active { opacity: 1; pointer-events: auto; }
+.testimonial-text {
+    font-family: var(--ff-display); font-style: italic;
+    font-size: clamp(20px, 2.8vw, 30px); line-height: 1.5;
+    color: var(--espresso); margin-bottom: 1.5rem;
+}
+.testimonial-attr { font-family: var(--ff-mono); font-size: 11px; opacity: 0.5; letter-spacing: 0.15em; }
+.testimonial-dots { display: flex; gap: 0.7rem; justify-content: center; margin-top: 2rem; }
+.dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(26,10,0,0.2); cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+}
+.dot.active { background: var(--gold); transform: scale(1.3); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer {
+    background: var(--charcoal); color: var(--cream);
+    padding: var(--sec-pad) 5% 3rem;
+    border-top: 1px solid var(--gold-dim);
+}
+.footer-inner {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem; max-width: 1200px; margin: 0 auto 4rem;
+}
+@media (max-width: 900px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 500px) { .footer-inner { grid-template-columns: 1fr; } }
+.footer-brand .f-logo {
+    font-family: var(--ff-caps); font-size: 18px;
+    color: var(--gold); letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+}
+.footer-brand .f-tagline {
+    font-family: var(--ff-body); font-size: 13px;
+    opacity: 0.5; line-height: 1.6; margin-top: 0.8rem;
+}
+.f-col-title {
+    font-family: var(--ff-caps); font-size: 10px;
+    letter-spacing: 0.2em; color: var(--gold); opacity: 0.6;
+    margin-bottom: 1.2rem;
+}
+.f-col ul { list-style: none; }
+.f-col li { margin-bottom: 0.7rem; }
+.f-col a { font-size: 14px; opacity: 0.6; transition: opacity 0.2s, color 0.2s; }
+.f-col a:hover { opacity: 1; color: var(--gold); }
+.f-contact-item { font-size: 14px; opacity: 0.6; margin-bottom: 0.7rem; line-height: 1.5; }
+
+.footer-bottom {
+    max-width: 1200px; margin: 0 auto;
+    padding-top: 2rem; border-top: 1px solid var(--gold-dim);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1rem;
+    font-family: var(--ff-mono); font-size: 11px; opacity: 0.35;
+}
+
+/* ============================================================
+   GLOBAL ANIMATION HELPERS
+   ============================================================ */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes clipReveal {
+    from { clip-path: inset(0 100% 0 0); }
+    to   { clip-path: inset(0 0% 0 0); }
+}
+
+.anim-item {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.anim-item.is-visible { opacity: 1; transform: translateY(0); }
+.anim-item[data-delay="1"] { transition-delay: 0.1s; }
+.anim-item[data-delay="2"] { transition-delay: 0.2s; }
+.anim-item[data-delay="3"] { transition-delay: 0.3s; }
+.anim-item[data-delay="4"] { transition-delay: 0.4s; }
+
+/* ============================================================
+   READING PROGRESS BAR
+   ============================================================ */
+#progress-bar {
+    position: fixed; top: 0; left: 0; z-index: 1000;
+    height: 2px; width: 0%;
+    background: linear-gradient(90deg, var(--terracotta), var(--gold));
+    transition: width 0.1s linear;
+    pointer-events: none;
+}
+
+/* ============================================================
+   SECTION DIVIDERS (diagonal cuts)
+   ============================================================ */
+.divider-down {
+    position: relative; overflow: hidden;
+    height: 60px; margin-top: -1px;
+}
+.divider-down svg { display: block; width: 100%; height: 100%; }
+
+/* ============================================================
+   LA MANTECATURA — PROCESS SECTION
+   ============================================================ */
+.section-process {
+    background: var(--espresso);
+    padding: var(--sec-pad) 5%;
+    position: relative; overflow: hidden;
+}
+.section-process::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.process-intro {
+    text-align: center; max-width: 700px; margin: 0 auto 5rem;
+}
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    max-width: 1200px; margin: 0 auto;
+    position: relative;
+}
+@media (max-width: 800px) { .process-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .process-grid { grid-template-columns: 1fr; } }
+
+.process-grid::before {
+    content: '';
+    position: absolute; top: 44px; left: 12.5%; right: 12.5%; height: 1px;
+    background: linear-gradient(90deg, var(--gold-dim), rgba(201,168,76,0.5), var(--gold-dim));
+}
+@media (max-width: 800px) { .process-grid::before { display: none; } }
+
+.process-step {
+    padding: 0 2rem 3rem; text-align: center;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.process-step.is-visible { opacity: 1; transform: translateY(0); }
+.process-step:nth-child(1) { transition-delay: 0s; }
+.process-step:nth-child(2) { transition-delay: 0.12s; }
+.process-step:nth-child(3) { transition-delay: 0.24s; }
+.process-step:nth-child(4) { transition-delay: 0.36s; }
+
+.process-icon {
+    width: 88px; height: 88px; border-radius: 50%;
+    border: 1px solid var(--gold-dim);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 2rem; font-size: 32px;
+    background: var(--espresso);
+    position: relative; z-index: 1;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.process-step:hover .process-icon {
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(201,168,76,0.15);
+}
+.process-step-num {
+    font-family: var(--ff-mono); font-size: 10px;
+    color: var(--gold); letter-spacing: 0.2em; opacity: 0.6;
+    margin-bottom: 0.6rem; display: block;
+}
+.process-step-title {
+    font-family: var(--ff-display); font-style: italic; font-size: 22px;
+    color: var(--gold); margin-bottom: 0.8rem;
+}
+.process-step-desc { font-size: 14px; line-height: 1.7; opacity: 0.65; }
+
+/* Overrun tooltip */
+.tooltip-wrap { position: relative; display: inline; }
+.tooltip-wrap u { text-decoration-color: var(--gold); text-decoration-style: dotted; cursor: help; }
+.tooltip-box {
+    position: absolute; bottom: calc(100% + 8px); left: 50%;
+    transform: translateX(-50%);
+    background: var(--charcoal);
+    border: 1px solid var(--gold-dim);
+    padding: 0.6rem 1rem;
+    font-family: var(--ff-mono); font-size: 11px; line-height: 1.5;
+    white-space: nowrap; color: var(--cream);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    transform: translateX(-50%) translateY(4px);
+    z-index: 10;
+}
+.tooltip-wrap:hover .tooltip-box {
+    opacity: 1; transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   FLAVOR SELECTOR (INTERACTIVE)
+   ============================================================ */
+.section-selector {
+    background: var(--marble); color: var(--espresso);
+    padding: var(--sec-pad) 5%;
+}
+.section-selector .section-title { color: var(--espresso); }
+.selector-inner { max-width: 1100px; margin: 0 auto; }
+
+.flavor-tabs {
+    display: flex; flex-wrap: wrap; gap: 0.8rem;
+    justify-content: center; margin: 3rem 0 2.5rem;
+}
+.ftab {
+    font-family: var(--ff-caps); font-size: 10px; letter-spacing: 0.15em;
+    padding: 0.7rem 1.5rem;
+    border: 1px solid rgba(44,37,32,0.2); background: transparent;
+    color: var(--charcoal); cursor: pointer;
+    transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+.ftab:hover { border-color: var(--terracotta); color: var(--terracotta); }
+.ftab.active { background: var(--espresso); color: var(--gold); border-color: var(--espresso); }
+
+.flavor-detail-panel {
+    display: none; opacity: 0;
+    grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: center;
+    transition: opacity 0.4s ease;
+}
+.flavor-detail-panel.active { display: grid; opacity: 1; animation: panelIn 0.5s var(--ease) forwards; }
+@keyframes panelIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 700px) { .flavor-detail-panel { grid-template-columns: 1fr; } }
+
+.fdp-visual {
+    aspect-ratio: 1; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(80px, 12vw, 140px);
+    position: relative;
+}
+.fdp-visual::after {
+    content: '';
+    position: absolute; inset: -8px;
+    border-radius: 50%;
+    border: 1px dashed var(--gold);
+    opacity: 0.3;
+    animation: rotateSlow 20s linear infinite;
+}
+@keyframes rotateSlow { to { transform: rotate(360deg); } }
+
+.fdp-name {
+    font-family: var(--ff-display); font-style: italic;
+    font-size: clamp(40px, 6vw, 64px); color: var(--espresso);
+    margin-bottom: 0.5rem; line-height: 1;
+}
+.fdp-origin {
+    font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.15em;
+    color: var(--terracotta); margin-bottom: 1.5rem; display: block;
+}
+.fdp-desc { font-size: clamp(15px, 1.5vw, 18px); line-height: 1.7; color: var(--charcoal); margin-bottom: 2rem; }
+.fdp-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+}
+.fdp-stat {
+    text-align: center; padding: 1rem;
+    background: rgba(26,10,0,0.05); border: 1px solid rgba(26,10,0,0.1);
+}
+.fdp-stat-num { font-family: var(--ff-display); font-size: 28px; color: var(--terracotta); display: block; }
+.fdp-stat-lbl { font-family: var(--ff-mono); font-size: 9px; letter-spacing: 0.15em; opacity: 0.5; }
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+.section-faq {
+    background: var(--cream); color: var(--espresso);
+    padding: var(--sec-pad) 5%;
+}
+.section-faq .section-title { color: var(--espresso); }
+.faq-list { max-width: 800px; margin: 4rem auto 0; }
+.faq-item {
+    border-bottom: 1px solid rgba(44,37,32,0.12);
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.faq-item.is-visible { opacity: 1; transform: translateY(0); }
+.faq-q {
+    width: 100%; text-align: left; background: none; border: none;
+    cursor: pointer; padding: 1.8rem 0;
+    display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    font-family: var(--ff-display); font-style: italic;
+    font-size: clamp(18px, 2vw, 22px); color: var(--espresso);
+}
+.faq-icon {
+    width: 28px; height: 28px; flex-shrink: 0;
+    border: 1px solid var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-style: normal; font-family: var(--ff-caps); font-size: 14px;
+    color: var(--gold); transition: transform 0.35s var(--ease), background 0.3s;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--gold); color: var(--espresso); }
+.faq-a {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.5s var(--ease), padding 0.4s;
+}
+.faq-item.open .faq-a { max-height: 400px; }
+.faq-a-inner {
+    padding: 0 0 1.8rem;
+    font-size: clamp(14px, 1.4vw, 17px); line-height: 1.75; opacity: 0.75;
+}
+
+
+/* ============================================================
+   RIPPLE EFFECT on buttons
+   ============================================================ */
+.ripple-wrap { position: relative; overflow: hidden; }
+.ripple-circle {
+    position: absolute; border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    transform: scale(0); animation: ripple-anim 0.6s linear;
+    pointer-events: none;
+}
+@keyframes ripple-anim {
+    to { transform: scale(4); opacity: 0; }
+}
+
+/* ============================================================
+   SPLIT TEXT chars
+   ============================================================ */
+.split-title .char {
+    display: inline-block;
+    opacity: 0; transform: translateY(40px);
+    animation: charUp 0.6s var(--ease) forwards;
+}
+
+@keyframes charUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+    .gallery-row-1, .gallery-row-2 { animation: none; }
+    .marquee-track { animation: none; }
+}
+    </style>
+</head>
+<body>
+
+<!-- Cursors -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div id="progress-bar"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#storia" onclick="closeMobile()">The History</a>
+    <a href="#gelato" onclick="closeMobile()">The Gelato</a>
+    <a href="#confronto" onclick="closeMobile()">The Comparison</a>
+    <a href="#tour" onclick="closeMobile()">The Tour</a>
+    <a href="https://grancaffelaquila.com" target="_blank">Book</a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+    <div class="nav-logo">
+        Gran Caffè L'Aquila
+        <span>PHILADELPHIA · EST. 2014</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="#storia">The History</a></li>
+        <li><a href="#gelato">The Gelato</a></li>
+        <li><a href="#confronto">The Comparison</a></li>
+        <li><a href="#tour">The Tour</a></li>
+    </ul>
+    <a href="https://grancaffelaquila.com" target="_blank" class="nav-cta">Book</a>
+    <div class="hamburger" id="hamburger" onclick="toggleMobile()">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<!-- ===================== MARQUEE ===================== -->
+<div class="marquee-strip" style="position:relative;z-index:1;margin-top:0;">
+    <div class="marquee-track">
+        <span>ARTISANAL GELATO</span><span>·</span>
+        <span>MAESTRO STEFANO BIASINI</span><span>·</span>
+        <span>WORLD CHAMPION</span><span>·</span>
+        <span>PHILADELPHIA · PA</span><span>·</span>
+        <span>EST. 2014</span><span>·</span>
+        <span>ARTISANAL GELATO</span><span>·</span>
+        <span>MAESTRO STEFANO BIASINI</span><span>·</span>
+        <span>WORLD CHAMPION</span><span>·</span>
+        <span>PHILADELPHIA · PA</span><span>·</span>
+        <span>EST. 2014</span><span>·</span>
+    </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <div class="hero-supertitle">UNIVERSITY OF PENNSYLVANIA · GELATO TASTING</div>
+        <h1 class="hero-title shimmer-text">Gelato<br>as Art</h1>
+        <p class="hero-subtitle">A vertical tasting prepared for the <strong>Italian Foods and Cultures</strong> course — Tuesday, December 1, 2026, in the upstairs dining room of Gran Caffè L'Aquila, Philadelphia.</p>
+        <a href="https://grancaffelaquila.com/pages/gelato-menu" target="_blank" class="hero-cta">Explore the Gelato Menu →</a>
+    </div>
+    <div class="scroll-hint">
+        <span>SCROLL</span>
+        <div class="scroll-line"></div>
+    </div>
+</section>
+
+<!-- ===================== STORIA ===================== -->
+<section class="section-storia" id="storia">
+    <div class="storia-inner">
+        <div class="storia-text">
+            <span class="label">ORIGINS</span>
+            <h2 class="section-title anim-item">When Ice<br>Became Art</h2>
+            <p class="observer-p">Gelato was born in the <strong>Florentine Renaissance</strong>, around 1565, when architect Bernardo Buontalenti was commissioned by the Medici to create an extraordinary dessert for court celebrations. Combining cream, honey, and snow from the Apennines, the first modern version of gelato was born.</p>
+            <p class="observer-p">In the following centuries, <strong>Sicilian gelato makers</strong> brought the tradition across Europe — to Paris, Vienna, Madrid. It was in Naples in the 18th century that gelato left the royal courts to become food of the people, served in cones on the streets.</p>
+            <p class="observer-p">Today, <strong>Maestro Stefano Biasini</strong> — Italian Gelato Champion and international World Press Champion — brings this centuries-old tradition to the heart of Philadelphia, reinterpreting every flavor with the precision of an engineer and the sensitivity of an artist.</p>
+        </div>
+
+        <aside class="storia-timeline" aria-label="Historical Timeline">
+            <div class="storia-tl-item observer-tl">
+                <span class="storia-tl-dot" aria-hidden="true"></span>
+                <div class="storia-tl-year">1565</div>
+                <div class="storia-tl-body"><em>Buontalenti</em> creates the first modern gelato for the Medici.</div>
+            </div>
+            <div class="storia-tl-item observer-tl">
+                <span class="storia-tl-dot" aria-hidden="true"></span>
+                <div class="storia-tl-year">1686</div>
+                <div class="storia-tl-body">In Paris, the first <strong>café glacé</strong> opens: <em>Café Procope</em>.</div>
+            </div>
+            <div class="storia-tl-item observer-tl">
+                <span class="storia-tl-dot" aria-hidden="true"></span>
+                <div class="storia-tl-year">1770</div>
+                <div class="storia-tl-body">Gelato crosses the Atlantic and arrives in <strong>America</strong>.</div>
+            </div>
+            <div class="storia-tl-item observer-tl">
+                <span class="storia-tl-dot" aria-hidden="true"></span>
+                <div class="storia-tl-year">1925</div>
+                <div class="storia-tl-body">Patent for the <strong>modern churning machine</strong>: everything changes.</div>
+            </div>
+            <div class="storia-tl-item observer-tl">
+                <span class="storia-tl-dot" aria-hidden="true"></span>
+                <div class="storia-tl-year">2014</div>
+                <div class="storia-tl-body"><strong>Gran Caffè L’Aquila</strong> opens in Philadelphia.</div>
+            </div>
+        </aside>
+    </div>
+</section>
+
+<!-- ===================== FLAVORS ===================== -->
+<section class="section-flavors" id="gelato">
+    <div class="section-header">
+        <span class="label anim-item">MAESTRO STEFANO BIASINI</span>
+        <h2 class="section-title anim-item" data-delay="1">Champion's Gelato</h2>
+        <p class="section-subtitle anim-item" data-delay="2">The four flavors of your tasting, in the order they will be served — from the lightest to the most intense.</p>
+    </div>
+
+    <div class="grid-flavors" style="max-width:1200px;margin:0 auto 5rem;">
+        <div class="flavor-card observer-card" data-delay-card="0">
+            <span class="flavor-tag">DAIRY-FREE · SEASONAL FRUIT</span>
+            <div class="flavor-name">Sorbetto</div>
+            <p class="flavor-desc">Just fruit, water and a touch of sugar — no milk, no cream. The lightest way to open the tasting, and the purest expression of the fruit.</p>
+        </div>
+        <div class="flavor-card observer-card" data-delay-card="100">
+            <span class="flavor-tag">SIGNATURE · BEST OF PHILLY</span>
+            <div class="flavor-name">Desire</div>
+            <p class="flavor-desc">Imported Amarena cherries from Modena infused into fior di latte made with Lancaster milk. The signature flavor cited when Gran Caffè L'Aquila won Best of Philly.</p>
+        </div>
+        <div class="flavor-card observer-card" data-delay-card="200">
+            <span class="flavor-tag">SIGNATURE · DOP</span>
+            <div class="flavor-name">Pistacchio</div>
+            <p class="flavor-desc">DOP pistachios from Bronte, Sicily. Deep green, authentic flavor. No coloring, no artificial flavors.</p>
+        </div>
+        <div class="flavor-card observer-card" data-delay-card="300">
+            <span class="flavor-tag">INTENSO · 70%</span>
+            <div class="flavor-name">Fondente</div>
+            <p class="flavor-desc">70% dark chocolate, deep and barely sweet. The intense closing note of the flight — for those who accept no compromises.</p>
+        </div>
+    </div></section>
+
+<!-- ===================== LA MANTECATURA ===================== -->
+<div class="divider-down" style="background:var(--espresso);">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 L1440,0 L1440,60 L0,20 Z" fill="#EDE8DF"/>
+    </svg>
+</div>
+
+<section class="section-process" id="processo">
+    <div class="process-intro">
+        <span class="label anim-item">THE TECHNIQUE</span>
+        <h2 class="section-title anim-item" data-delay="1">The Art of Churning</h2>
+        <p class="section-subtitle anim-item" data-delay="2" style="color:rgba(245,240,232,0.65);max-width:600px;margin:1rem auto 0;">
+            Churning is the soul of gelato: the process that transforms simple ingredients into a one-of-a-kind sensory experience. Every detail is controlled, every variable is calculated.
+        </p>
+    </div>
+
+    <div class="process-grid">
+        <div class="process-step observer-process">
+            <div class="process-icon">🥛</div>
+            <span class="process-step-num">01</span>
+            <div class="process-step-title">Selection</div>
+            <p class="process-step-desc">Only fresh local whole milk, selected sugars and Italian DOP ingredients. No additives, no preservatives. Quality starts with the raw ingredients.</p>
+        </div>
+        <div class="process-step observer-process">
+            <div class="process-icon">🔥</div>
+            <span class="process-step-num">02</span>
+            <div class="process-step-title">Pasteurization</div>
+            <p class="process-step-desc">The ingredients are weighed and balanced to the gram, mixed, then pasteurized at a controlled temperature. This makes the base safe and gives it a stable, even structure.</p>
+        </div>
+        <div class="process-step observer-process">
+            <div class="process-icon">🌙</div>
+            <span class="process-step-num">03</span>
+            <div class="process-step-title">Aging</div>
+            <p class="process-step-desc">The base rests for 6–12 hours at 4°C. During aging, the proteins and fats bind the water in the mix — this slow step is where the creamy structure of artisanal gelato is really built.</p>
+        </div>
+        <div class="process-step observer-process">
+            <div class="process-icon">🌰</div>
+            <span class="process-step-num">04</span>
+            <div class="process-step-title">Flavoring</div>
+            <p class="process-step-desc">Only now do the character ingredients enter the base: Bronte pistachio paste, 70% dark chocolate, Amarena cherries from Modena. Each flavor is dosed on the same base and balanced on its own.</p>
+        </div>
+        <div class="process-step observer-process">
+            <div class="process-icon">❄️</div>
+            <span class="process-step-num">05</span>
+            <div class="process-step-title">Churning</div>
+            <p class="process-step-desc">In the churning machine, the mix cools rapidly while incorporating only
+            <span class="tooltip-wrap"><u>20–30% air</u><span class="tooltip-box">Overrun: the percentage of air incorporated.<br>Less air = more density = more flavor.</span></span>
+            — half of what industrial ice cream contains. Result: unique density and intensity.</p>
+        </div>
+        <div class="process-step observer-process">
+            <div class="process-icon">🍨</div>
+            <span class="process-step-num">06</span>
+            <div class="process-step-title">Hardening &amp; Service</div>
+            <p class="process-step-desc">The gelato is blast-chilled to set its structure, then held at −11°C (warmer than ice cream) and served at the optimal temperature: soft enough to release all its aromas, firm enough to hold the cone.</p>
+        </div>
+    </div></section>
+
+<div class="divider-down" style="background:var(--marble);">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,0 L1440,20 L1440,60 L0,60 Z" fill="var(--espresso)"/>
+    </svg>
+</div>
+
+<!-- ===================== CONFRONTO ===================== -->
+<section class="section-comparison" id="confronto">
+    <div class="section-header">
+        <span class="label">THE COMPARISON</span>
+        <h2 class="section-title anim-item">It’s not the same thing.<br>It never has been.</h2>
+        <p class="section-subtitle anim-item" data-delay="1" style="color:var(--charcoal);">Gelato, Ice Cream and Sorbetto: three completely different products in technique, ingredients and intensity.</p>
+    </div>
+
+    <div class="compare-grid">
+        <div class="compare-card card-gelato observer-card">
+            <div class="winner-badge">✦ THE BEST</div>
+            <div class="compare-emoji">🍨</div>
+            <div class="compare-name">Gelato</div>
+            <ul class="compare-stats">
+                <li><span class="stat-label">Fat</span><span class="stat-val stat-win">4–8%</span></li>
+                <li><span class="stat-label">Air (overrun)</span><span class="stat-val stat-win">20–30%</span></li>
+                <li><span class="stat-label">Serving temp.</span><span class="stat-val">−11°C</span></li>
+                <li><span class="stat-label">Base</span><span class="stat-val">Whole milk</span></li>
+                <li><span class="stat-label">Calories/100g</span><span class="stat-val stat-win">~160 kcal</span></li>
+                <li><span class="stat-label">Flavor intensity</span><span class="stat-val stat-win">★★★★★</span></li>
+            </ul>
+        </div>
+        <div class="compare-card card-ice observer-card" data-delay-card="150">
+            <div class="compare-emoji">🍦</div>
+            <div class="compare-name">Ice Cream</div>
+            <ul class="compare-stats">
+                <li><span class="stat-label">Fat</span><span class="stat-val">10–25%</span></li>
+                <li><span class="stat-label">Air (overrun)</span><span class="stat-val">50–100%</span></li>
+                <li><span class="stat-label">Serving temp.</span><span class="stat-val">−15°C</span></li>
+                <li><span class="stat-label">Base</span><span class="stat-val">Heavy cream</span></li>
+                <li><span class="stat-label">Calories/100g</span><span class="stat-val">~207 kcal</span></li>
+                <li><span class="stat-label">Flavor intensity</span><span class="stat-val">★★★☆☆</span></li>
+            </ul>
+        </div>
+        <div class="compare-card card-sorbet observer-card" data-delay-card="300">
+            <div class="compare-emoji">🍧</div>
+            <div class="compare-name">Sorbetto</div>
+            <ul class="compare-stats">
+                <li><span class="stat-label">Fat</span><span class="stat-val">0%</span></li>
+                <li><span class="stat-label">Air (overrun)</span><span class="stat-val">25–40%</span></li>
+                <li><span class="stat-label">Serving temp.</span><span class="stat-val">−12°C</span></li>
+                <li><span class="stat-label">Base</span><span class="stat-val">Water + fruit</span></li>
+                <li><span class="stat-label">Calories/100g</span><span class="stat-val">~97 kcal</span></li>
+                <li><span class="stat-label">Vegan-friendly</span><span class="stat-val">✓</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Nutrition Chart -->
+    <div class="nutrition-section" id="nutritionSection">
+        <div class="nutrition-title">NUTRITIONAL VALUES · PER 100g · ARTISANAL AVERAGE</div>
+
+        <div class="nutrition-row nut-header">
+            <div class="nut-label">METRIC</div>
+            <div style="font-family:var(--ff-caps);font-size:10px;letter-spacing:0.1em;color:var(--terracotta);">GELATO</div>
+            <div style="font-family:var(--ff-caps);font-size:10px;letter-spacing:0.1em;opacity:0.5;">ICE CREAM</div>
+            <div style="font-family:var(--ff-caps);font-size:10px;letter-spacing:0.1em;color:var(--gold);">SORBETTO</div>
+        </div>
+
+        <!-- Row template via JS -->
+        <div id="nutritionRows"></div>
+    </div>
+
+    <div class="callout-box anim-item">
+        <p>Artisanal gelato has on average <strong>40% less fat</strong> than industrial ice cream — and twice the flavor intensity thanks to its low overrun.</p>
+    </div>
+</section>
+
+<!-- ===================== FLAVOR SELECTOR ===================== -->
+<section class="section-selector" id="flavors">
+    <div class="selector-inner">
+        <div class="section-header">
+            <span class="label anim-item">EXPLORE</span>
+            <h2 class="section-title anim-item" data-delay="1">The Tasting Flight</h2>
+            <p class="section-subtitle anim-item" data-delay="2" style="color:var(--charcoal);">Four flavors, one vertical tasting — in the order they will be served. Each has a story, an origin, an identity.</p>
+        </div>
+
+        <div class="flavor-tabs" id="flavorTabs">
+            <button class="ftab active" data-flavor="0">Sorbetto</button>
+            <button class="ftab" data-flavor="1">Desire</button>
+            <button class="ftab" data-flavor="2">Pistacchio</button>
+            <button class="ftab" data-flavor="3">Fondente</button>
+        </div>
+
+        <div id="flavorPanels">
+            <!-- Panels inserted by JS -->
+        </div>
+    </div>
+</section>
+
+<!-- ===================== TOUR ===================== -->
+<section class="section-tour" id="tour">
+    <div class="tour-inner">
+        <div class="tour-header">
+            <span class="label anim-item">THE GELATO TOUR</span>
+            <h2 class="section-title anim-item" data-delay="1">An Experience in Four Acts</h2>
+            <p class="section-subtitle anim-item" data-delay="2">From the origins of gelato to your cup — the four acts of your visit, Tuesday, December 1, 2026.</p>
+        </div>
+
+        <div class="tour-steps">
+            <div class="tour-step observer-step">
+                <div class="tour-num">01</div>
+                <div class="tour-step-title">The History</div>
+                <p class="tour-step-desc">From the Medici courts to the Renaissance: the centuries-old story of Italian gelato told through objects, images and words.</p>
+            </div>
+            <div class="tour-step observer-step">
+                <div class="tour-num">02</div>
+                <div class="tour-step-title">The Lab</div>
+                <p class="tour-step-desc">Exclusive access to the 2nd floor gelato lab — where Biasini creates his daily masterpieces with premium Italian ingredients.</p>
+            </div>
+            <div class="tour-step observer-step">
+                <div class="tour-num">03</div>
+                <div class="tour-step-title">The Tasting</div>
+                <p class="tour-step-desc">The vertical flight, in order: a seasonal fruit sorbetto, Desire, Pistacchio and Fondente — presented by Andrea Sangalli with Maestro Stefano Biasini.</p>
+            </div>
+            <div class="tour-step observer-step">
+                <div class="tour-num">04</div>
+                <div class="tour-step-title">The Pairing</div>
+                <p class="tour-step-desc">The right espresso for the right gelato. An introduction to the world of Italian coffee curated by Maestro Biasini.</p>
+            </div>
+        </div>
+
+
+       <div class="cta-group anim-item">
+            <a href="https://grancaffelaquila.com/pages/gelato-menu" target="_blank" class="btn-secondary">Explore the Gelato Menu</a>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== GALLERY ===================== -->
+<section class="section-gallery" aria-label="Photo Gallery">
+    <div class="gallery-row gallery-row-1" id="galleryRow1"></div>
+    <div class="gallery-row gallery-row-2" id="galleryRow2"></div>
+</section>
+
+<!-- ===================== AWARDS ===================== -->
+<section class="section-awards" id="awards">
+    <span class="label anim-item">AWARDS</span>
+    <h2 class="section-title anim-item" data-delay="1">The Most Awarded<br>Gelato in America</h2>
+
+    <div class="awards-grid">
+        <div class="award-item observer-award">
+            <div class="award-num counter-award" data-to="1" data-prefix="#" data-suffix="">1</div>
+            <div class="award-title">ITALIAN GELATO CHAMPIONSHIP</div>
+            <div class="award-sub">Maestro Stefano Biasini — Italian Gelato Championship</div>
+        </div>
+        <div class="award-item observer-award">
+            <div class="award-num">🏆</div>
+            <div class="award-title">WORLD PRESS CHAMPION</div>
+            <div class="award-sub">International Press World Champion — Gelato Category</div>
+        </div>
+       <!-- <div class="award-item observer-award">
+            <div class="award-num counter-award" data-to="8" data-suffix="×">0×</div>
+            <div class="award-title">WINE SPECTATOR</div>
+            <div class="award-sub">8 Consecutive Awards of Excellence — Riccardo Longo</div>
+        </div>-->
+        <div class="award-item observer-award">
+            <div class="award-num">★</div>
+            <div class="award-title">GAMBERO ROSSO</div>
+            <div class="award-sub">Top Italian Restaurants in the World</div>
+        </div>
+        <div class="award-item observer-award">
+            <div class="award-num">🥇</div>
+            <div class="award-title">BEST OF PHILLY</div>
+            <div class="award-sub">Readers Choice — Best Italian Restaurant</div>
+        </div>
+        <div class="award-item observer-award">
+            <div class="award-num counter-award" data-to="2007" data-suffix="">1</div>
+            <div class="award-title">BAR D'ITALIA</div>
+            <div class="award-sub">Best Bar & Caffè in all of Italy — L'Aquila, Abruzzo</div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="section-testimonials">
+    <span class="label">GUESTS</span>
+    <h2 class="section-title anim-item">Those Who’ve Tasted It<br>Always Come Back</h2>
+    <div class="testimonial-slider" id="testimonialSlider"></div>
+    <div class="testimonial-dots" id="testimonialDots"></div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="section-faq" id="faq">
+    <div class="section-header">
+        <span class="label anim-item">FREQUENTLY ASKED QUESTIONS</span>
+        <h2 class="section-title anim-item" data-delay="1">Everything You<br>Want to Know</h2>
+    </div>
+    <div class="faq-list" id="faqList">
+        <!-- Inserted by JS -->
+    </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="f-logo">Gran Caffè L'Aquila</div>
+            <div style="font-family:var(--ff-caps);font-size:9px;letter-spacing:0.2em;color:var(--gold);opacity:0.5;">PHILADELPHIA · SINCE 2014</div>
+            <div class="f-tagline">Authentically Italian.<br>Artisanal gelato by Maestro Stefano Biasini — World Champion.</div>
+        </div>
+        <div class="f-col">
+            <div class="f-col-title">THE TOUR</div>
+            <ul>
+                <li><a href="#storia">The History</a></li>
+                <li><a href="#gelato">The Tasting Flight</a></li>
+                <li><a href="#confronto">The Comparison</a></li>
+                <!--<li><a href="#tour">Book the Tour</a></li>-->
+            </ul>
+        </div>
+        <div class="f-col">
+            <div class="f-col-title">GRAN CAFFÈ</div>
+            <ul>
+                <li><a href="https://grancaffelaquila.com/pages/dinner-menu" target="_blank">Full Menu</a></li>
+               <!-- <li><a href="https://grancaffelaquila.com/pages/gelato-menu" target="_blank">Gelato Menu</a></li>-->
+                <li><a href="https://grancaffelaquila.com/pages/our-story" target="_blank">Our Story</a></li>
+                <li><a href="https://grancaffelaquila.com/collections/gelato" target="_blank">Order Online</a></li>
+            </ul>
+        </div>
+        <div class="f-col">
+            <div class="f-col-title">CONTACT</div>
+            <div class="f-contact-item">1716 Chestnut St<br>Philadelphia, PA 19103</div>
+            <div class="f-contact-item">(215) 568-5600</div>
+            <div class="f-contact-item"><a href="https://grancaffelaquila.com" target="_blank" style="color:var(--gold);opacity:1;">grancaffelaquila.com</a></div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Gran Caffè L'Aquila · Philadelphia, Pennsylvania</span>
+        <span>Artisanal gelato by Maestro Stefano Biasini</span>
+    </div>
+</footer>
+
+
+<script>
+/* ============================================================
+   CURSOR
+   ============================================================ */
+const dot = document.getElementById('cursorDot');
+const ring = document.getElementById('cursorRing');
+if (window.matchMedia('(pointer: fine)').matches) {
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animCursor() {
+        rx += (mx - rx) * 0.15;
+        ry += (my - ry) * 0.15;
+        if (dot)  dot.style.transform  = `translate3d(${mx - 4}px, ${my - 4}px, 0)`;
+        if (ring) ring.style.transform = `translate3d(${rx - 18}px, ${ry - 18}px, 0)`;
+        requestAnimationFrame(animCursor);
+    }
+    animCursor();
+    document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+}
+
+/* ============================================================
+   NAVBAR SCROLL
+   ============================================================ */
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 80);
+}, { passive: true });
+
+/* ============================================================
+   HERO PARALLAX
+   ============================================================ */
+const heroBg = document.getElementById('heroBg');
+window.addEventListener('scroll', () => {
+    if (window.scrollY < window.innerHeight * 1.2) {
+        heroBg.style.transform = `translateY(${window.scrollY * 0.28}px)`;
+    }
+}, { passive: true });
+
+/* ============================================================
+   MOBILE MENU
+   ============================================================ */
+function toggleMobile() {
+    const menu = document.getElementById('mobileMenu');
+    const burger = document.getElementById('hamburger');
+    menu.classList.toggle('open');
+    burger.classList.toggle('open');
+}
+function closeMobile() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+}
+
+/* ============================================================
+   INTERSECTION OBSERVER — animations
+   ============================================================ */
+const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const t = e.target;
+        t.classList.add('is-visible');
+
+        // nutrition bar fills — animate when the bar itself or parent row is observed
+        const bars = t.classList.contains('nut-bar-fill')
+            ? [t]
+            : t.querySelectorAll('.nut-bar-fill');
+        bars.forEach(b => { if (b.dataset.w) b.style.width = b.dataset.w; });
+
+        // count-up
+        if (t.classList.contains('counter-award')) {
+            const to = parseInt(t.dataset.to);
+            const suffix = t.dataset.suffix || '';
+            const prefix = t.dataset.prefix || '';
+            countUp(t, to, prefix, suffix, to > 100 ? 1600 : 900);
+        }
+
+        // story year counter
+        if (t.id === 'counter-years') countUp(t, 459, '', '', 1400);
+
+        io.unobserve(t);
+    });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+
+// Register all animated elements
+['.anim-item', '.observer-card', '.observer-step', '.observer-award',
+ '.observer-p', '.observer-visual', '.observer-tl', '#nutritionSection',
+ '#counter-years'].forEach(sel => {
+    document.querySelectorAll(sel).forEach((el, i) => {
+        if (sel === '.observer-card' && el.dataset.delayCard) {
+            el.style.transitionDelay = el.dataset.delayCard + 'ms';
+        }
+        io.observe(el);
+    });
+});
+
+function countUp(el, to, prefix, suffix, duration) {
+    const start = performance.now();
+    const step = t => {
+        const p = Math.min((t - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 4);
+        el.textContent = prefix + Math.floor(ease * to) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+}
+
+/* ============================================================
+   NUTRITION TABLE
+   ============================================================ */
+const nutritionData = [
+    { label: 'Calories (kcal)', g: 160, i: 207, s: 97,  gMax: 160, iMax: 207, sMax: 97 },
+    { label: 'Total Fat (g)', g: 6.0, i: 11.0, s: 0.2, gMax: 6, iMax: 11, sMax: 0.2 },
+    { label: 'Saturated Fat (g)', g: 3.5, i: 7.0,  s: 0.1, gMax: 3.5, iMax: 7, sMax: 0.1 },
+    { label: 'Sugar (g)',     g: 20,  i: 21,   s: 22,  gMax: 20, iMax: 21, sMax: 22 },
+    { label: 'Protein (g)',     g: 3.5, i: 3.5,  s: 0.5, gMax: 3.5, iMax: 3.5, sMax: 0.5 },
+    { label: 'Sodium (mg)',       g: 70,  i: 80,   s: 5,   gMax: 70, iMax: 80, sMax: 5 },
+    { label: 'Calcium (mg)',      g: 130, i: 128,  s: 8,   gMax: 130, iMax: 128, sMax: 8 },
+];
+const maxVals = [207, 11, 7, 22, 3.5, 80, 130];
+
+const container = document.getElementById('nutritionRows');
+nutritionData.forEach((row, idx) => {
+    const max = maxVals[idx];
+    const gWin = row.g <= row.i && row.g <= row.s && row.label !== 'Sugar (g)';
+    container.innerHTML += `
+    <div class="nutrition-row">
+        <div class="nut-label">${row.label}</div>
+        <div class="nut-bar-wrap">
+            <div class="nut-bar-track"><div class="nut-bar-fill fill-g" data-w="${Math.round(row.g/max*100)}%" style="width:0"></div></div>
+            <span class="nut-val${gWin?' best':''}">${row.g}</span>
+        </div>
+        <div class="nut-bar-wrap">
+            <div class="nut-bar-track"><div class="nut-bar-fill fill-i" data-w="${Math.round(row.i/max*100)}%" style="width:0"></div></div>
+            <span class="nut-val">${row.i}</span>
+        </div>
+        <div class="nut-bar-wrap">
+            <div class="nut-bar-track"><div class="nut-bar-fill fill-s" data-w="${Math.round(row.s/max*100)}%" style="width:0"></div></div>
+            <span class="nut-val">${row.s}</span>
+        </div>
+    </div>`;
+});
+
+// Observe nutrition section for bar animation
+document.querySelectorAll('#nutritionRows .nut-bar-fill').forEach(b => io.observe(b));
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+const galleryImages = [
+    { url: 'https://cdn.shopify.com/s/files/1/2081/5853/files/gelato.png?v=1590822170',cap: '' },
+    { url: 'https://tse2.mm.bing.net/th/id/OIP.UUzOZtoMKeTV2OM5_C8KrAHaEK?pid=Api&P=0&h=220',cap: '' },
+    { url: 'https://tse4.mm.bing.net/th/id/OIP.DJQYnUQZp8TjYRS2MDGRTgAAAA?pid=Api&P=0&h=220',cap: ''  },
+    { url: 'https://tse4.mm.bing.net/th/id/OIP.Iz8-_yAsk26hVWSAvUSJiAHaFj?pid=Api&P=0&h=220',cap: ''  },
+    { url: 'https://tse3.mm.bing.net/th/id/OIP.SegjYdacl6YmORMwrXOuFQAAAA?pid=Api&P=0&h=220',cap: ''  },
+    { url: 'https://tse4.mm.bing.net/th/id/OIP.GimX-ZZjQV-VAAnX8Zt0VQAAAA?pid=Api&P=0&h=220',cap: ''  },
+    { url: 'https://tse2.mm.bing.net/th/id/OIP.l8XXm9GwDnUGEmLj5XZnygHaHa?pid=Api&P=0&h=220',cap: ''  },
+    { url: 'https://tse2.mm.bing.net/th/id/OIP.KWb4dCyW-SlGRtfW16RGfgHaE7?pid=Api&P=0&h=220',cap: 'Stefano Biasini'  },
+];
+
+function buildGalleryRow(rowEl, images) {
+    const doubled = [...images, ...images];
+    rowEl.innerHTML = doubled.map(img => `
+        <div class="gallery-item">
+            <img src="${img.url}" alt="${img.cap}" loading="lazy" decoding="async">
+            <div class="gallery-caption"><span>${img.cap}</span></div>
+        </div>`).join('');
+}
+buildGalleryRow(document.getElementById('galleryRow1'), galleryImages);
+buildGalleryRow(document.getElementById('galleryRow2'), [...galleryImages].reverse());
+
+/* ============================================================
+   TESTIMONIALS
+   ============================================================ */
+const testimonials = [
+    { text: "The gelato is as creamy as you won’t find anywhere else. An experience worth the trip.", attr: '— TripAdvisor · ★★★★★' },
+    { text: "The Pistacchio had an authentic and intense flavor. Worth coming just for the gelato.", attr: '— Google Reviews · ★★★★★' },
+    { text: "We ended dinner with espressos and two cups of dark chocolate. An unforgettable evening.", attr: '— TripAdvisor · ★★★★★' },
+    { text: "The gelato with truffle on the pasta is simply incredible. Biasini is a genius.", attr: '— OpenTable · ★★★★★' },
+    { text: "The first row is the gelateria — always with a line out the door. That tells you everything.", attr: '— Yelp · ★★★★★' },
+];
+
+const slider = document.getElementById('testimonialSlider');
+const dots = document.getElementById('testimonialDots');
+let activeTestimonial = 0;
+
+slider.innerHTML = testimonials.map((t, i) => `
+    <div class="testimonial-slide${i===0?' active':''}" data-idx="${i}">
+        <blockquote class="testimonial-text">"${t.text}"</blockquote>
+        <div class="testimonial-attr">${t.attr}</div>
+    </div>`).join('');
+
+dots.innerHTML = testimonials.map((_, i) => `
+    <div class="dot${i===0?' active':''}" onclick="goTestimonial(${i})"></div>`).join('');
+
+function goTestimonial(idx) {
+    document.querySelectorAll('.testimonial-slide').forEach((s,i) => s.classList.toggle('active', i===idx));
+    document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i===idx));
+    activeTestimonial = idx;
+}
+setInterval(() => goTestimonial((activeTestimonial + 1) % testimonials.length), 5000);
+
+// Touch swipe for testimonials
+let tsX = null;
+slider.addEventListener('touchstart', e => tsX = e.touches[0].clientX, { passive: true });
+slider.addEventListener('touchend', e => {
+    if (tsX === null) return;
+    const diff = tsX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTestimonial((activeTestimonial + (diff > 0 ? 1 : -1) + testimonials.length) % testimonials.length);
+    tsX = null;
+}, { passive: true });
+
+/* ============================================================
+   READING PROGRESS BAR
+   ============================================================ */
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (window.scrollY / docH * 100) + '%';
+}, { passive: true });
+
+/* ============================================================
+   RIPPLE on .ripple-wrap elements
+   ============================================================ */
+document.querySelectorAll('.ripple-wrap').forEach(el => {
+    el.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const r = document.createElement('span');
+        r.className = 'ripple-circle';
+        const size = Math.max(rect.width, rect.height) * 2;
+        r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size/2}px;top:${e.clientY - rect.top - size/2}px`;
+        this.appendChild(r);
+        r.addEventListener('animationend', () => r.remove());
+    });
+});
+
+/* ============================================================
+   SPLIT TEXT — Hero title word reveal
+   ============================================================ */
+(function revealHeroWords() {
+    const el = document.querySelector('.hero-title');
+    if (!el) return;
+    // Already has shimmer via CSS gradient — just let clip-path animation run
+    // Add word-level stagger via spans for lines
+})();
+
+/* ============================================================
+   FLAVOR SELECTOR
+   ============================================================ */
+const flavorData = [
+    {
+        emoji: '🍧', name: 'Sorbetto', origin: 'SEASONAL FRUIT · DAIRY-FREE',
+        desc: 'Sorbetto is gelato\'s lighter sibling: fruit, water and just enough sugar to carry the flavor — no milk, no cream, no eggs. It opens the tasting because it is the purest measure of the fruit itself, and it is naturally dairy-free and vegan.',
+        stats: [{ num: '0%', lbl: 'Fat' }, { num: '100%', lbl: 'Dairy-free' }, { num: '~97', lbl: 'kcal/100g' }]
+    },
+    {
+        emoji: '🍒', name: 'Desire', origin: 'AMARENA CHERRIES · MODENA',
+        desc: 'The signature of Gran Caffè L\'Aquila: imported Amarena cherries from Modena, infused into a fior di latte base made with fresh Lancaster milk. It is the flavor cited when the shop won Best of Philly — a meeting point between Emilia-Romagna and Pennsylvania in a single cup.',
+        stats: [{ num: 'Signature', lbl: 'Flavor' }, { num: 'Modena', lbl: 'Cherries' }, { num: 'Best of Philly', lbl: 'Award' }]
+    },
+    {
+        emoji: '💚', name: 'Pistacchio', origin: 'BRONTE · SICILY · DOP',
+        desc: 'DOP pistachios from Bronte (Sicily) are considered the best in the world for their intense green color and rich, almost resinous flavor. No artificial coloring. The green you see is from nature, not a laboratory.',
+        stats: [{ num: 'DOP', lbl: 'Certification' }, { num: '35%', lbl: 'Pure paste' }, { num: 'Bronte', lbl: 'Origin' }]
+    },
+    {
+        emoji: '🍫', name: 'Fondente', origin: 'DARK CHOCOLATE · 70%',
+        desc: 'Seventy percent dark chocolate, worked into the base until it turns almost black. Bitter first, then warm, with a long cocoa finish and very little sweetness — the most intense stop of the flight, and the natural closing note of the tasting.',
+        stats: [{ num: '70%', lbl: 'Cocoa' }, { num: 'Intense', lbl: 'Profile' }, { num: '185', lbl: 'kcal/100g' }]
+    },
+];
+
+const panelsContainer = document.getElementById('flavorPanels');
+panelsContainer.innerHTML = flavorData.map((f, i) => `
+    <div class="flavor-detail-panel${i === 0 ? ' active' : ''}" data-panel="${i}">
+        <div class="fdp-visual" style="background:radial-gradient(circle, rgba(201,168,76,0.08), transparent);">${f.emoji}</div>
+        <div>
+            <div class="fdp-name">${f.name}</div>
+            <span class="fdp-origin">${f.origin}</span>
+            <p class="fdp-desc">${f.desc}</p>
+            <div class="fdp-stats">
+                ${f.stats.map(s => `<div class="fdp-stat"><span class="fdp-stat-num">${s.num}</span><span class="fdp-stat-lbl">${s.lbl}</span></div>`).join('')}
+            </div>
+        </div>
+    </div>`).join('');
+
+document.getElementById('flavorTabs').addEventListener('click', e => {
+    const btn = e.target.closest('.ftab');
+    if (!btn) return;
+    const idx = parseInt(btn.dataset.flavor);
+    document.querySelectorAll('.ftab').forEach(b => b.classList.toggle('active', b === btn));
+    document.querySelectorAll('.flavor-detail-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+});
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+const faqData = [
+    {
+        q: 'Which flavors will we taste at the Penn tasting?',
+        a: 'A vertical flight of four, served in this order: a seasonal fruit sorbetto, Desire (Amarena cherries from Modena in a fior di latte base), Pistacchio made with DOP pistachios from Bronte, and Fondente, a 70% dark chocolate. The flight moves from the lightest to the most intense.'
+    },
+    {
+        q: 'I have a nut allergy — what should I know?',
+        a: 'Pistacchio is a tree nut, and it is one of the four flavors of the flight. Please let the staff know about any allergy before the tasting begins, so we can seat and serve you safely — the sorbetto is made without dairy, eggs or nuts.'
+    },
+    {
+        q: 'What is the real difference between artisanal gelato and ice cream?',
+        a: 'The main difference is in the fat content and incorporated air. Ice cream contains up to 25% fat (mainly heavy cream) and incorporates up to 100% air (overrun) — meaning half of what you eat is air. Artisanal gelato uses whole milk (not cream), has a fat content of 4–8% and incorporates only 20–30% air. Result: denser, more intense, fewer calories.'
+    },
+    {
+        q: 'Is gelato suitable for people who are lactose intolerant?',
+        a: 'Traditional gelato contains lactose as it is milk-based. However, sorbettos are completely dairy-free and suitable for the lactose intolerant. Gran Caffè L\'Aquila also offers plant-based gelato options seasonally. We always recommend checking with the staff at the time of ordering for specific allergies.'
+    },
+    {
+        q: 'What makes Biasini’s gastronomic gelato special?',
+        a: 'Maestro Biasini is the only gelato maker in the world to systematically produce gelato as a gastronomic ingredient for savory dishes. The gastronomic flavors — black truffle, Parmigiano Reggiano, pancetta, roasted pepper — are designed to complement specific dishes, adding a creamy freshness that enhances flavors without overpowering them. It is a technical and conceptual revolution in Italian cuisine.'
+    },
+    {
+        q: 'How is artisanal gelato stored?',
+        a: 'Artisanal gelato is stored at −11°C, significantly warmer than the −15°C of industrial ice cream. This higher temperature is essential: it keeps the gelato soft enough to release all its aromas upon tasting (aromatic molecules are released better at less extreme temperatures) and allows the characteristic velvety texture. Every day the gelato is made fresh.'
+    },
+    /*{
+        q: 'Can I join the Gelato Tour if I don\'t speak Italian?',
+        a: 'Absolutely yes. The Gelato Tour is conducted in English and Italian. The guide is bilingual and adapts the tour to the group present. Every technical step is explained in both languages, with illustrative material that makes understanding intuitive regardless of language.'
+    },
+     {
+        q: 'Is it possible to book the tour for corporate groups or private events?',
+        a: 'Yes, Gran Caffè L\'Aquila offers private tours for corporate groups, special events, team building and celebrations. The tour can be customized with extended tastings, coffee-gelato pairing, and a direct appearance by Maestro Biasini. Contact the restaurant directly at (215) 568-5600 or via grancaffelaquila.com for availability and quotes.'
+    },*/
+];
+
+document.getElementById('faqList').innerHTML = faqData.map((item, i) => `
+    <div class="faq-item observer-faq" style="transition-delay:${i*0.07}s">
+        <button class="faq-q" onclick="toggleFaq(this)" aria-expanded="false">
+            <span>${item.q}</span>
+            <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a" role="region">
+            <div class="faq-a-inner">${item.a}</div>
+        </div>
+    </div>`).join('');
+
+function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+    }
+}
+
+/* Register new observers for process, faq */
+document.querySelectorAll('.observer-process, .observer-faq').forEach(el => io.observe(el));
+
+/* ============================================================
+   RE-OBSERVE nutrition bars after JS render
+   ============================================================ */
+setTimeout(() => {
+    document.querySelectorAll('.nut-bar-fill').forEach(b => {
+        io.observe(b);
+    });
+    document.querySelectorAll('#nutritionRows .nutrition-row').forEach(r => io.observe(r));
+}, 100);
+</script>
+</body>
+</html>
